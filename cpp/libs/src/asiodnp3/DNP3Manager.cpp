@@ -26,6 +26,8 @@
 #include <asiopal/PhysicalLayerSerial.h>
 #include <asiopal/PhysicalLayerTCPClient.h>
 #include <asiopal/PhysicalLayerTCPServer.h>
+#include <asiopal/PhysicalLayerUDPClient.h>
+#include <asiopal/PhysicalLayerUDPServer.h>
 
 #ifdef OPENDNP3_USE_TLS
 #include <asiopal/tls/PhysicalLayerTLSClient.h>
@@ -87,6 +89,34 @@ IChannel* DNP3Manager::AddTCPServer(
 	                new asiopal::PhysicalLayerTCPServer(root->logger, impl->threadpool.GetIOService(), endpoint, port)
 	            );
 	return impl->channels.CreateChannel(std::move(root), retry, std::move(phys));
+}
+
+IChannel* DNP3Manager::AddUDPClient(
+    char const* id,
+    uint32_t levels,
+    const opendnp3::ChannelRetry& retry,
+    const std::string& host,
+    const std::string& local,
+    uint16_t port)
+{
+    auto root = std::unique_ptr<LogRoot>(new LogRoot(impl->handler.get(), id, levels));
+    auto phys = std::unique_ptr<asiopal::PhysicalLayerUDPClient>(new asiopal::PhysicalLayerUDPClient(root->logger, impl->threadpool.GetIOService(), host, local, port));
+    return impl->channels.CreateChannel(std::move(root), retry, std::move(phys));
+}
+
+IChannel* DNP3Manager::AddUDPServer(
+    char const* id,
+    uint32_t levels,
+    const opendnp3::ChannelRetry& retry,
+    const std::string& endpoint,
+    uint16_t port)
+{
+
+    auto root = std::unique_ptr<LogRoot>(new LogRoot(impl->handler.get(), id, levels));
+    auto phys = std::unique_ptr<asiopal::PhysicalLayerUDPServer>(
+        new asiopal::PhysicalLayerUDPServer(root->logger, impl->threadpool.GetIOService(), endpoint, port)
+        );
+    return impl->channels.CreateChannel(std::move(root), retry, std::move(phys));
 }
 
 IChannel* DNP3Manager::AddSerial(

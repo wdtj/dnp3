@@ -127,7 +127,12 @@ if(DEMO)
   target_link_libraries (master-demo LINK_PUBLIC asiodnp3 ${PTHREAD})
   set_target_properties(master-demo PROPERTIES FOLDER demos)
 
-  # ----- master demo executable -----
+  # ----- master UDP demo executable -----
+  add_executable(masterUDP-demo ./cpp/examples/masterUDP/main.cpp)
+  target_link_libraries (masterUDP-demo LINK_PUBLIC asiodnp3 ${PTHREAD})
+  set_target_properties(masterUDP-demo PROPERTIES FOLDER demos)
+
+  # ----- master GPRS demo executable -----
   add_executable(master-gprs-demo ./cpp/examples/master-gprs/main.cpp)
   target_link_libraries (master-gprs-demo LINK_PUBLIC asiodnp3 ${PTHREAD})
   set_target_properties(master-gprs-demo PROPERTIES FOLDER demos)
@@ -136,6 +141,11 @@ if(DEMO)
   add_executable(outstation-demo ./cpp/examples/outstation/main.cpp)
   target_link_libraries (outstation-demo LINK_PUBLIC asiodnp3 ${PTHREAD})
   set_target_properties(outstation-demo PROPERTIES FOLDER demos)
+
+  # ----- outstation UDP demo executable -----
+  add_executable(outstationUDP-demo ./cpp/examples/outstationUDP/main.cpp)
+  target_link_libraries (outstationUDP-demo LINK_PUBLIC asiodnp3 ${PTHREAD})
+  set_target_properties(outstationUDP-demo PROPERTIES FOLDER demos)
 
   # When linking the demos, asiopal requires network libraries
   target_link_libraries (asiopal LINK_PUBLIC ${NET_LIBS})

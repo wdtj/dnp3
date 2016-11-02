@@ -110,7 +110,43 @@ public:
 	    const std::string& endpoint,
 	    uint16_t port);
 
-	/**
+    /**
+    * Add a UDP client channel. UDP is stateless and had no persistent connection
+    *
+    * @param id Alias that will be used for logging purposes with this channel
+    * @param levels Bitfield that describes the logging level for this channel and associated sessions
+    * @param retry Retry parameters for failed channels
+    * @param host IP address of remote outstation (i.e. 127.0.0.1 or www.google.com)
+    * @param local adapter address on which to attempt the connection (use 0.0.0.0 for all adapters)
+    * @param port Port of remote outstation is listening on
+    * @return A channel interface
+    */
+    IChannel* AddUDPClient(
+        char const* id,
+        uint32_t levels,
+        const opendnp3::ChannelRetry& retry,
+        const std::string& host,
+        const std::string& local,
+        uint16_t port);
+
+    /**
+    * Add a UDP server channel. 
+    *
+    * @param id Alias that will be used for logging purposes with this channel
+    * @param levels Bitfield that describes the logging level for this channel and associated sessions
+    * @param retry Retry parameters for failed channels
+    * @param endpoint Network adapter to listen on, i.e. 127.0.0.1 or 0.0.0.0
+    * @param port Port to listen on
+    * @return A channel interface
+    */
+    IChannel* AddUDPServer(
+        char const* id,
+        uint32_t levels,
+        const opendnp3::ChannelRetry& retry,
+        const std::string& endpoint,
+        uint16_t port);
+
+    /**
 	* Add a persistent TCP serial channel
 	*
 	* @param id Alias that will be used for logging purposes with this channel

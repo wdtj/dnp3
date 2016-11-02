@@ -31,6 +31,7 @@
 #include "opendnp3/objects/Group13.h"
 #include "opendnp3/objects/Group22.h"
 #include "opendnp3/objects/Group23.h"
+#include "opendnp3/objects/Group30.h"
 #include "opendnp3/objects/Group32.h"
 #include "opendnp3/objects/Group41.h"
 #include "opendnp3/objects/Group42.h"
@@ -129,6 +130,9 @@ ParseResult CountIndexParser::ParseCountOfObjects(openpal::RSlice& buffer, const
 	case(GroupVariation::Group13Var2) :
 		return CountIndexParser::From<Group13Var2>(count, numparser).Process(record, buffer, pHandler, pLogger);
 
+    case(GroupVariation::Group20Var1):
+        return CountIndexParser::From<Group22Var1>(count, numparser).Process(record, buffer, pHandler, pLogger);
+    
 	case(GroupVariation::Group22Var1) :
 		return CountIndexParser::From<Group22Var1>(count, numparser).Process(record, buffer, pHandler, pLogger);
 	case(GroupVariation::Group22Var2) :
@@ -146,6 +150,9 @@ ParseResult CountIndexParser::ParseCountOfObjects(openpal::RSlice& buffer, const
 		return CountIndexParser::From<Group23Var5>(count, numparser).Process(record, buffer, pHandler, pLogger);
 	case(GroupVariation::Group23Var6) :
 		return CountIndexParser::From<Group23Var6>(count, numparser).Process(record, buffer, pHandler, pLogger);
+
+    case(GroupVariation::Group30Var1):
+        return CountIndexParser::From<Group30Var1>(count, numparser).Process(record, buffer, pHandler, pLogger);
 
 	case(GroupVariation::Group32Var1) :
 		return CountIndexParser::From<Group32Var1>(count, numparser).Process(record, buffer, pHandler, pLogger);
